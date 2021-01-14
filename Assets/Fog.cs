@@ -5,12 +5,12 @@ using UnityEngine;
 public class Fog : MonoBehaviour
 {
     public Color fogColor;
-    public float fogSkyboxStart;
-    public float fogSkyboxGradientLength;
+    // public float fogSkyboxStart;
+    // public float fogSkyboxGradientLength;
     public float fogHeight;
     [Range(0,1)]public float fogDensity;
     [Min(0f)]public float fogFalloff;
-    [Min(0f)]public float fogStartDis;
+    public float fogStartDis;
     public float fogInscatteringExp;
     private static readonly int FogColor = Shader.PropertyToID("_FogColor");
     private static readonly int FogGlobalDensity = Shader.PropertyToID("_FogGlobalDensity");
@@ -29,12 +29,12 @@ public class Fog : MonoBehaviour
     // Update is called once per frame
     void OnValidate()
     {
-        if (fogSkyboxGradientLength < 0.01f)
-        {
-            fogSkyboxGradientLength = 0.01f;
-        }
+        // if (fogSkyboxGradientLength < 0.01f)
+        // {
+        //     fogSkyboxGradientLength = 0.01f;
+        // }
         Shader.SetGlobalColor(FogColor, fogColor);
-        Shader.SetGlobalFloat(FogGlobalDensity, fogDensity * 0.01f);
+        Shader.SetGlobalFloat(FogGlobalDensity, fogDensity);
         Shader.SetGlobalFloat(FogFallOff, fogFalloff);
         Shader.SetGlobalFloat(FogHeight, fogHeight);
         Shader.SetGlobalFloat(FogStartDis, fogStartDis);

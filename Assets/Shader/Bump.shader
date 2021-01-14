@@ -70,7 +70,7 @@
                 
                 
                 half4 col = tex2D(_MainTex, i.uv);
-                ExponentialHeightFog(col.xyz, i.posWorld)
+                col.xyz = ExponentialHeightFog(col.xyz, i.posWorld);
                 return half4(col.xyz,1);
             }
             ENDCG

@@ -68,7 +68,7 @@ SubShader {
             half3 c = DecodeHDR (tex, _Tex_HDR);
             c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
             c *= _Exposure;
-            ExponentialHeightFog(c, i.posWorld)
+            c.xyz = ExponentialHeightFog(c, half3(-i.posWorld.x,i.posWorld.y,-i.posWorld.z));
             return half4(c, 1);
         }
         ENDCG
