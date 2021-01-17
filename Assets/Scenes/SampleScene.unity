@@ -303,12 +303,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ece389738f0fb45869485069080ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enable: 1
   fogColor: {r: 0.6918832, g: 0.8420361, b: 0.8679245, a: 0}
   fogHeight: 27.7
-  fogDensity: 0.009
-  fogFalloff: 4.4
-  fogStartDis: -10.88
+  fogDensity: 0.508
+  fogFalloff: 4.11
+  fogStartDis: -10.96
   fogInscatteringExp: 12.9
+  fogGradientDis: 50
 --- !u!20 &552351384
 Camera:
   m_ObjectHideFlags: 0
@@ -587,8 +589,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.9995699, b: 0.8066038, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.98896855, b: 0.80784315, a: 1}
+  m_Intensity: 1.18
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -644,13 +646,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433853993}
-  m_LocalRotation: {x: -0.1299781, y: -0.035873875, z: 0.6327965, w: -0.7624876}
+  m_LocalRotation: {x: 0.032131787, y: -0.042065796, z: 0.63866085, w: -0.76766557}
   m_LocalPosition: {x: 0, y: 0, z: -17.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 165.9, y: 173.5, z: -260.18402}
+  m_LocalEulerAnglesHint: {x: 179.748, y: 186.063, z: -259.504}
 --- !u!1001 &1454629699
 PrefabInstance:
   m_ObjectHideFlags: 0

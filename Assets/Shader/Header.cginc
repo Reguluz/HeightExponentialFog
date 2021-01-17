@@ -4,19 +4,12 @@
 #include "UnityLightingCommon.cginc"
 float3 _FogColor;
 
-//Object
 float _FogGlobalDensity;
 float _FogFallOff;
 float _FogHeight;
 float _FogStartDis;
 float _FogInscatteringExp;
-
-sampler2D _CameraDepthTexture;
-
-float GetDepth(float4 uv)
-{
-   return LinearEyeDepth(UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, uv.xy)));
-}
+float _FogGradientDis;
 
 half3 ExponentialHeightFog(half3 col, half3 posWorld)
 {
@@ -26,28 +19,13 @@ half3 ExponentialHeightFog(half3 col, half3 posWorld)
     half fogFactor = (1 - exp2(-falloff))/falloff;
     half3 viewDir = _WorldSpaceCameraPos - posWorld;
     half rayLength = length(viewDir);
-    half fog = fogFactor * fogDensity * max(rayLength - _FogStartDis, 0);
-    
-    half inscatterFog = pow(saturate(dot(-normalize(viewDir), WorldSpaceLightDir(half4(posWorld,1)))), _FogInscatteringExp);
-    // inscatterFog *= 1-saturate(exp2(falloff));
-    // inscatterFog *= max(rayLength - _FogStartDis, 0);
-    // return inscatterFog;
-    half3 finalFogColor = lerp(_FogColor, _LightColor0, saturate(inscatterFog));
+    half distanceFactor = max((rayLength - _FogStartDis)/ _FogGradientDis, 0);
+    half fog = fogFactor * fogDensity * distanceFactor;
+    half inscatterFactor = pow(saturate(dot(-normalize(viewDir), WorldSpaceLightDir(half4(posWorld,1)))), _FogInscatteringExp);
+    inscatterFactor *= 1-saturate(exp2(falloff));
+    inscatterFactor *= distanceFactor;
+    half3 finalFogColor = lerp(_FogColor, _LightColor0, saturate(inscatterFactor));
     return lerp(col, finalFogColor, saturate(fog));
 }
-#define EXPONENTIALHEIGHTFOG(col, posWorld) \
-    half heightFallOff = _FogFallOff * 0.001;\
-    half falloff = heightFallOff * (posWorld.y - _WorldSpaceCameraPos.y);\
-    half fogDensity = _FogGlobalDensity * exp2(-heightFallOff * (_WorldSpaceCameraPos.y - _FogHeight));\
-    half fogFactor = (1 - exp2(-falloff))/falloff;\
-    half3 viewDir = _WorldSpaceCameraPos - posWorld;\
-    half rayLength = length(viewDir);\
-    half fog = fogFactor * fogDensity * max(rayLength - _FogStartDis, 0);\
-    half inscatterFog = pow(saturate(dot(normalize(viewDir), _WorldSpaceLightPos0 - posWorld)), _FogInscatteringExp);\
-    inscatterFog *= 1-saturate(exp2(falloff));\
-    inscatterFog *= max(rayLength - _FogStartDis, 0);\
-    half3 finalFogColor = lerp(_FogColor, _LightColor0, saturate(inscatterFog));\
-    col = lerp(col, finalFogColor, saturate(fog));
-    
 
 #endif

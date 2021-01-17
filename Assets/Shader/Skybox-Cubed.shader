@@ -18,6 +18,8 @@ SubShader {
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 2.0
+        #pragma shader_feature _FOG_ON
+        
 
         #include "UnityCG.cginc"
         #include "Header.cginc"
@@ -68,7 +70,9 @@ SubShader {
             half3 c = DecodeHDR (tex, _Tex_HDR);
             c = c * _Tint.rgb * unity_ColorSpaceDouble.rgb;
             c *= _Exposure;
+        #ifdef _FOG_ON
             c.xyz = ExponentialHeightFog(c, half3(-i.posWorld.x,i.posWorld.y,-i.posWorld.z));
+        #endif
             return half4(c, 1);
         }
         ENDCG

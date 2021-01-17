@@ -15,8 +15,7 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
-            // #pragma multi_compile_fog
+            #pragma shader_feature _FOG_ON
 
             #include "UnityCG.cginc"
             #include "Header.cginc"
@@ -70,7 +69,9 @@
                 
                 
                 half4 col = tex2D(_MainTex, i.uv);
+            #ifdef _FOG_ON
                 col.xyz = ExponentialHeightFog(col.xyz, i.posWorld);
+            #endif
                 return half4(col.xyz,1);
             }
             ENDCG
