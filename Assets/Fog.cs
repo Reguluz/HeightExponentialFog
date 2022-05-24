@@ -30,10 +30,12 @@ public class Fog : MonoBehaviour
         if (enable)
         {
             Shader.EnableKeyword("_FOG_ON");
+            Shader.DisableKeyword("_FOG_OFF");
         }
         else
         {
             Shader.DisableKeyword("_FOG_ON");
+            Shader.EnableKeyword("_FOG_OFF");
         }
     }
 }

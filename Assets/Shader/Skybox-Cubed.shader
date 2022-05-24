@@ -18,7 +18,7 @@ SubShader {
         #pragma vertex vert
         #pragma fragment frag
         #pragma target 2.0
-        #pragma shader_feature _FOG_ON
+        #pragma shader_feature _FOG_OFF _FOG_ON
         
 
         #include "UnityCG.cginc"

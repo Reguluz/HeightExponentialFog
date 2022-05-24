@@ -15,7 +15,7 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma shader_feature _FOG_ON
+            #pragma shader_feature _FOG_OFF _FOG_ON
 
             #include "UnityCG.cginc"
             #include "Header.cginc"
